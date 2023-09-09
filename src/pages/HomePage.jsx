@@ -1,8 +1,10 @@
+// 랜딩페이지
+import Container from "../components/Container";
 function HomePage() {
   return (
-    <div>
+    <Container>
       <h1>Home Page</h1>
-    </div>
+    </Container>
   );
 }
 

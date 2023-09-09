@@ -3,14 +3,15 @@ import User from "../User";
 import Admin from "../Admin";
 
 const cookie = {
-  role: "STUDENT",
+  role: "USER",
 };
 
 function Home() {
   return (
     <div>
-      {cookie.role === "STUDENT" && <User />}
+      {cookie.role === "USER" && <User />}
       {cookie.role === "ADMIN" && <Admin />}
+      {!cookie.role && <div>권한이 없습니다.</div>}
     </div>
   );
 }

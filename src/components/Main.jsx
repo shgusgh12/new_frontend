@@ -2,14 +2,18 @@
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
+import styles from "./Main.module.css";
 
 function Main() {
   return (
     <>
+      {/* 네비게이션 바 */}
       <Nav />
-      <div>
+      {/* 바디 */}
+      <div className={`${styles.body}`}>
         <Outlet />
       </div>
+      {/* 푸터 */}
       <Footer />
     </>
   );

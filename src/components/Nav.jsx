@@ -11,47 +11,47 @@ function getLinkStyle({ isActive }) {
   };
 }
 
+// 리코일로 관리자, 사용자 네브바 구분
+
 function Nav() {
   return (
-    <div>
-      <Container>
-        <Link to="/">
-          <Logo>
-            <LogoImage src={logoImage} alt="logo" />
-          </Logo>
-        </Link>
-        <Categories>
-          <Category>
-            <NavLink to="/experiment/interest" style={getLinkStyle}>
-              투자실험
-            </NavLink>
-          </Category>
-          <Category>
-            <NavLink to="/lecture" style={getLinkStyle}>
-              강의실
-            </NavLink>
-          </Category>
-          <Category>
-            <NavLink to="/column" style={getLinkStyle}>
-              칼럼
-            </NavLink>
-          </Category>
-          <Category>
-            <NavLink to="/community" style={getLinkStyle}>
-              커뮤니티
-            </NavLink>
-          </Category>
-          <Category>
-            <NavLink to="/mypage" style={getLinkStyle}>
-              마이페이지
-            </NavLink>
-          </Category>
-          <Category>
-            <UserMenu></UserMenu>
-          </Category>
-        </Categories>
-      </Container>
-    </div>
+    <Container>
+      <Link to="/">
+        <Logo>
+          <LogoImage src={logoImage} alt="logo" />
+        </Logo>
+      </Link>
+      <Categories>
+        <Category>
+          <NavLink to="/experiment" style={getLinkStyle}>
+            투자실험
+          </NavLink>
+        </Category>
+        <Category>
+          <NavLink to="/lectures" style={getLinkStyle}>
+            강의실
+          </NavLink>
+        </Category>
+        <Category>
+          <NavLink to="/column" style={getLinkStyle}>
+            칼럼
+          </NavLink>
+        </Category>
+        <Category>
+          <NavLink to="/community" style={getLinkStyle}>
+            커뮤니티
+          </NavLink>
+        </Category>
+        <Category>
+          <NavLink to="/mypage/portfolio" style={getLinkStyle}>
+            마이페이지
+          </NavLink>
+        </Category>
+        <Category>
+          <UserMenu></UserMenu>
+        </Category>
+      </Categories>
+    </Container>
   );
 }
 
@@ -71,10 +71,9 @@ const Container = styled.div`
   align-items: center;
   padding: 0 1rem;
   height: 4rem;
-  border-bottom: 1px solid #e9ecef;
-  img {
-    height: 2rem;
-  }
+  position: relative;
+  box-shadow: var(--box-shadow);
+  background-color: white;
 `;
 
 const Categories = styled.ul`
