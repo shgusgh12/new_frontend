@@ -1,3 +1,5 @@
+$border-color: #ebebeb;
+
 .container {
     box-sizing: border-box;
 
@@ -9,7 +11,7 @@
 
     height: 40px;
 
-    border: 1px solid #bebebe;
+    border: 1px solid $border-color;
     border-radius: 20px;
 
     background-color: #ffffff;
@@ -51,7 +53,7 @@
     display: block;
     width: inherit;
 
-    border: 1px solid #bebebe;
+    border: 1px solid $border-color;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 
