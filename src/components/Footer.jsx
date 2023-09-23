@@ -1,8 +1,9 @@
 import facebookIcon from "../assets/facebook.svg";
 import twitterIcon from "../assets/twitter.svg";
 import instagramIcon from "../assets/instagram.svg";
-import styles from "./Footer.module.scss";
 import Container from "./Container";
+
+import styles from "./Footer.module.scss";
 
 function Footer() {
     return (
