@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { CardContainer } from "../../../../components/Container";
-import { DropDown } from "../../../../components/DropDown";
-import { Ticker, RateOfChange, HoldingStock, RecentTransaction } from "../../../../components/Stock";
-import { PreviewLineChart } from "../../../../components/Chart";
+import { useState } from "react";
 import Chart from "react-apexcharts";
+
+import { CardContainer } from "../../../components/Container";
+import { DropDown } from "../../../components/DropDown";
+import { HoldingStock, RecentTransaction } from "../../../components/Stock";
 
 import styles from "./Portfolio.module.scss";
 
-export default function Portfolio() {
+export default function PortfolioSection() {
     const [selected, setSelected] = useState({ index: -1, value: "포트폴리오 선택" });
 
     return (

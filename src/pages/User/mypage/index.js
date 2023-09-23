@@ -1,19 +1,13 @@
+import { Outlet } from "react-router-dom";
 import { NavAside } from "../../../components/Nav";
-import MyPageBody from "./body";
-import styled from "styled-components";
 
-function MyPage() {
+import styles from "./index.module.scss";
+
+export default function MyPage() {
     return (
-        <MyPageContainer>
+        <main className={styles.page}>
             <NavAside />
-            <MyPageBody />
-        </MyPageContainer>
+            <Outlet />
+        </main>
     );
 }
-
-const MyPageContainer = styled.div`
-    display: flex;
-    margin-top: 40px;
-`;
-
-export default MyPage;
