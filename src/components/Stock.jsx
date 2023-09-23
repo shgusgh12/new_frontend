@@ -55,3 +55,28 @@ export const HoldingStock = ({ width, chartWidth, chartHeight, color, ticker, da
         </div>
     );
 };
+
+export const RecentTransaction = {
+    Container: ({ year, month, date, children }) => {
+        return (
+            <div className={styles.transaction_container}>
+                <p>
+                    {year}.{month}.{date}
+                </p>
+                <div className={styles.transaction_items}>{children}</div>
+            </div>
+        );
+    },
+
+    Item: ({ ticker, color, amount, price }) => {
+        return (
+            <div className={styles.transaction_item}>
+                <Ticker ticker={ticker} color={color} />
+                <div className={styles.transaction_info}>
+                    <span>{amount}주</span>
+                    <span>{price.toLocaleString()}원</span>
+                </div>
+            </div>
+        );
+    },
+};
