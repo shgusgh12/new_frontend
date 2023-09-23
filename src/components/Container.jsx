@@ -1,10 +1,15 @@
 import classNames from "classnames";
-import styles from "./Container.module.css";
+import styles from "./Container.module.scss";
 
-function Container({ className, children }) {
-  return (
-    <div className={classNames(className, styles.container)}>{children}</div>
-  );
+export default function Container({ className, children }) {
+    return <div className={classNames(className, styles.container)}>{children}</div>;
 }
 
-export default Container;
+export const CardContainer = ({ title, width, height, children, ...rest }) => {
+    return (
+        <div className={styles.card_container} style={{ width: width, height: height }} {...rest}>
+            {title && <h4>{title}</h4>}
+            {children}
+        </div>
+    );
+};

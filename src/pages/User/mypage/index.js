@@ -1,4 +1,3 @@
-import LeftBar from "../../../components/LeftBar";
 import { NavAside } from "../../../components/Nav";
 import MyPageBody from "./body";
 import styled from "styled-components";
