@@ -45,3 +45,13 @@ export const RateOfChange = ({ value }) => {
         );
     }
 };
+
+export const HoldingStock = ({ width, chartWidth, chartHeight, color, ticker, dataX, dataY, rateOfChange }) => {
+    return (
+        <div className={styles.holding_stock} style={{ width: width }}>
+            <Ticker color={color} ticker={ticker} />
+            <PreviewLineChart width={chartWidth} height={chartHeight} dataX={dataX} dataY={dataY} color={color} />
+            <RateOfChange value={rateOfChange} />
+        </div>
+    );
+};
