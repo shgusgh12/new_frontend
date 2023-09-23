@@ -1,0 +1,38 @@
+.ticker {
+    display: flex;
+    align-items: center;
+    height: 20px;
+
+    span:first-child {
+        display: block;
+
+        width: 15px;
+        height: 15px;
+
+        margin: 0px 10px;
+        border-radius: 15px;
+    }
+    span:last-child {
+        display: block;
+    }
+}
+
+.rate_of_change {
+    display: flex;
+    align-items: center;
+    span:first-child {
+        display: block;
+        margin: 0px 5px;
+    }
+    span:last-child {
+        display: block;
+    }
+}
+
+.holding_stock {
+    height: 80px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
