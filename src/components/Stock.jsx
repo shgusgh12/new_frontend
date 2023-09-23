@@ -12,3 +12,36 @@ export const Ticker = ({ color, ticker }) => {
         </div>
     );
 };
+
+export const RateOfChange = ({ value }) => {
+    if (Number(value) > 0) {
+        return (
+            <div className={styles.rate_of_change}>
+                <span>
+                    <FontAwesomeIcon icon={faCaretUp} color="#0ECB81" />
+                </span>
+                <span style={{ color: "#0ECB81" }}>{value} %</span>
+            </div>
+        );
+    }
+    if (Number(value) < 0) {
+        return (
+            <div className={styles.rate_of_change}>
+                <span>
+                    <FontAwesomeIcon icon={faCaretDown} color="#F6465D" />
+                </span>
+                <span style={{ color: "#F6465D" }}>{value} %</span>
+            </div>
+        );
+    }
+    if (Number(value) == 0) {
+        return (
+            <div className={styles.rate_of_change}>
+                <span>
+                    <FontAwesomeIcon icon={faMinus} />
+                </span>
+                <span>{value} %</span>
+            </div>
+        );
+    }
+};
