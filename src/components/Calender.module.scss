@@ -1,0 +1,62 @@
+.wrapper {
+    box-sizing: content-box;
+
+    padding: 20px;
+    border: 1px solid #ebebeb;
+    border-radius: 40px;
+
+    background-color: #fff;
+}
+
+.head_container {
+    box-sizing: content-box;
+
+    display: flex;
+    align-items: center;
+    height: 50px;
+
+    border-bottom: 2px solid #dddddd;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.body_container {
+    box-sizing: content-box;
+
+    display: grid;
+    grid-template-columns: repeat(7, 50px);
+}
+
+.item {
+    padding: 10px;
+
+    .date {
+        // 날짜 동그라미에 포인터 이벤트 제거
+        pointer-events: none;
+
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #767676;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+.item_active {
+    div > span {
+        background-color: #00a96b;
+        color: #ffffff !important;
+    }
+}
