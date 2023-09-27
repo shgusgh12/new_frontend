@@ -9,7 +9,6 @@ import Lecture from "./pages/User/lecture";
 import Community from "./pages/User/community";
 import MyPage from "./pages/User/mypage";
 import NotFoundPage from "./pages/NotFoundPage";
-import MyPageBody from "./pages/User/mypage/body";
 
 // 오늘 해야할 일
 // 1. 마이페이지 왼쪽 바 디자인

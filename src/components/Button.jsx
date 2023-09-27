@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { darken, lighten } from "polished";
 
 /*
-
 색상, 가로, 세로, outline 의 옵션을 지정 가능합니다.
 기본 색상 : 메인 색
 기본 가로 : 100%
@@ -49,19 +48,32 @@ const StyledButton = styled.button`
   /* 공통 스타일 */
   outline: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   color: white;
   /* font-weight: bold; */
   cursor: pointer;
   padding-left: 1rem;
   padding-right: 1rem;
 
+  /* 최소 크기 */
+  @media (max-width: 901px) {
+    min-width: 74.875px;
+  }
+
   /* 크기 */
   width: ${(props) => props.width || "100%"};
-  height: ${(props) => props.height || "40px"};
+  height: ${(props) => props.height || "3rem"};
 
   /* 색상 */
-  ${colorStyles}
+  &.active {
+    ${colorStyles}
+  }
+  /* 비활성화 색상 */
+  &.deactive {
+    background: #f0f0f0;
+    color: #909090;
+    cursor: default;
+  }
 
   /* 기타 */
   & + & {
@@ -69,15 +81,23 @@ const StyledButton = styled.button`
   }
 `;
 
-function Button({ children, color, width, height, size, outline, ...rest }) {
-  console.log(typeof width);
+function Button({
+  children,
+  color,
+  width,
+  height,
+  outline,
+  disabled = false,
+  ...rest
+}) {
   return (
     <StyledButton
       color={color}
       width={width}
       height={height}
-      size={size}
       outline={outline}
+      disabled={disabled}
+      className={disabled ? "deactive" : "active"}
       {...rest}
     >
       {children}

@@ -2,16 +2,16 @@ import axios from "axios";
 
 /*
 예시 : 
-useGetApi("challenges");
+getApi("challenges");
 const headers = {
   ACCESS : "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJzd"
 }
-useGetApi("challenges", headers);
+getApi("challenges", headers);
 */
 
-const BACKEND_URL = "http://localhost:8080/api/v1/";
+const BACKEND_URL = "http://223.130.138.147:8080/api/v1";
 
-export async function useGetApi(url, headers, params) {
+export async function getApi(url, headers, params) {
   const response = await axios.get(BACKEND_URL + url, {
     headers: headers,
     params: params,
@@ -21,7 +21,7 @@ export async function useGetApi(url, headers, params) {
   return response;
 }
 
-export async function usePostApi(url, requestBody, headers, params) {
+export async function postApi(url, requestBody, headers, params) {
   const response = await axios.post(BACKEND_URL + url, requestBody, {
     headers: headers,
     params: params,
@@ -30,7 +30,7 @@ export async function usePostApi(url, requestBody, headers, params) {
   return response;
 }
 
-export async function usePutApi(url, requestBody, headers, params) {
+export async function putApi(url, requestBody, headers, params) {
   const response = await axios.put(BACKEND_URL + url, requestBody, {
     headers: headers,
     params: params,
@@ -40,7 +40,7 @@ export async function usePutApi(url, requestBody, headers, params) {
   return response;
 }
 
-export async function usePatchApi(url, requestBody, headers, params) {
+export async function patchApi(url, requestBody, headers, params) {
   const response = await axios.patch(BACKEND_URL + url, requestBody, {
     headers: headers,
     params: params,
@@ -50,7 +50,7 @@ export async function usePatchApi(url, requestBody, headers, params) {
   return response;
 }
 
-export async function useDeleteApi(url, headers) {
+export async function deleteApi(url, headers) {
   const response = await axios.delete(BACKEND_URL + url, {
     headers: headers,
     withCredentials: true,
