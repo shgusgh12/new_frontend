@@ -2,16 +2,16 @@
 import User from "../User";
 import Admin from "../Admin";
 
-const cookie = {
+const temp = {
   role: "USER",
 };
 
 function Home() {
   return (
     <div>
-      {cookie.role === "USER" && <User />}
-      {cookie.role === "ADMIN" && <Admin />}
-      {!cookie.role && <div>권한이 없습니다.</div>}
+      {temp.role === "USER" && <User />}
+      {temp.role === "ADMIN" && <Admin />}
+      {!temp.role && <div>권한이 없습니다.</div>}
     </div>
   );
 }
