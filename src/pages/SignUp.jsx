@@ -9,34 +9,8 @@ import googleIcon from "../assets/icon-googleSymbol.png";
 import kakaoIcon from "../assets/icon-kakaoSymbol.png";
 import naverIcon from "../assets/icon-naverSymbol.png";
 import { useNavigate } from "react-router-dom";
-import { postApi } from "../utils/http";
+import { getApi, postApi } from "../utils/http";
 import Login from "./Login";
-
-// 회원가입 시 전달해야할 데이터
-// email = [String]
-// name=[String]
-// password = [String]
-// nickname = [String]
-// birthDate = [String]
-// interestCategories=[’String’, ‘String’]
-// gender = [”F” or “M”]
-
-// interestCategories 는 최대 5개
-
-// 첫 페이지
-// 이름, 이메일, 비밀번호, 비밀번호 재확인
-
-// 두 번째 페이지
-// 닉네임, 휴대폰 번호, 생년월일, 성별
-
-// 세 번째 페이지
-// 관심 종목 페이지
-
-// 네 번째 페이지
-// 회원가입 성공, 로그인하러 가기
-
-//- email, name, password, nickname, birthDate는 필수항목입니다.
-//- gender와 interestCategories는 필수항목은 아니에요, 없으면 안보내도 됩니당
 
 // 소셜 로그인 provider
 const socialLoginProviders = [
@@ -67,15 +41,6 @@ const InputDiv = ({
     <StyledInputDiv bottom={bottom}>
       <Label>{labelName}</Label>
       {children}
-      {/* {isValid ? (
-        isDoubleCheck ? (
-          <ValidMessage color="#2D791E">{message}</ValidMessage>
-        ) : (
-          <ValidMessage color="#2D791E">{message}</ValidMessage>
-        )
-      ) : (
-        <ValidMessage>{message}</ValidMessage>
-      )} */}
       {/* 중복체크 필요 없는 인풋 */}
       {isDoubleCheck === undefined ? (
         isValid ? (
@@ -83,7 +48,8 @@ const InputDiv = ({
         ) : (
           <ValidMessage>{message}</ValidMessage>
         )
-      ) : isValid ? (
+      ) : // 중복체크 필요한 인풋
+      isValid ? (
         isDoubleCheck ? (
           <ValidMessage color="#2D791E">{message}</ValidMessage>
         ) : (
@@ -190,9 +156,9 @@ function SignUP() {
       password: form.password,
       passwordDoubleCheck: form.passwordDoubleCheck,
       nickname: form.nickname,
-      birthDate: form.birthDate,
+      birth_date: form.birth_date,
       gender: form.gender,
-      interestCategories: "test",
+      interest_categories: "test",
     });
     setPage(page + 1);
   };
@@ -205,9 +171,9 @@ function SignUP() {
       password: form.password,
       passwordDoubleCheck: form.passwordDoubleCheck,
       nickname: form.nickname,
-      birthDate: form.birthDate,
+      birth_date: form.birth_date,
       gender: form.gender,
-      interestCategories: "test",
+      interest_categories: "test",
     });
     setPage(page - 1);
   };
@@ -219,9 +185,9 @@ function SignUP() {
     password: "",
     passwordDoubleCheck: "",
     nickname: "",
-    birthDate: "",
+    birth_date: "",
     gender: "MALE",
-    interestCategories: "test",
+    interest_categories: "test",
   });
 
   // 오류메세지 상태 저장
@@ -446,15 +412,39 @@ function SignUP() {
   );
 
   // 중복 확인 버튼 클릭 시
-  const handleDupliClick = (e) => {
+  const handleDupliClick = async (e) => {
     // 이메일 중복확인
     if (e.target.name === "email") {
-      setEmailDupliValid(true);
-      setEmailModal(true);
+      try {
+        const { data } = await getApi(`/auth/email?email=${form.email}`);
+        console.log(data);
+        if (data) {
+          // 사용 가능한 이메일
+          setEmailDupliValid(true);
+          setEmailModal(true);
+        }
+      } catch (error) {
+        // 사용 불가능한 이메일
+        setEmailDupliValid(false);
+        setEmailModal(true);
+      }
     } else if (e.target.name === "nickname") {
       // 닉네임 중복확인
-      setNicknameDupliValid(true);
-      setNicknameModal(true);
+      try {
+        const { data } = await getApi(
+          `/auth/nicknames/nickname?=${form.nickname}`
+        );
+        console.log(data);
+        if (data) {
+          // 사용 가능한 닉네임
+          setNicknameDupliValid(true);
+          setNicknameModal(true);
+        }
+      } catch (error) {
+        // 사용 불가능한 닉네임
+        setNicknameDupliValid(true);
+        setNicknameModal(true);
+      }
     }
   };
 
@@ -509,21 +499,19 @@ function SignUP() {
   async function handleSubmmit() {
     // passwordDoubleCheck 값 재외
     const { passwordDoubleCheck, ...formDataToSend } = form;
-    // birthDate 형식  : YYYY-MM-DD
-    formDataToSend.birthDate = formDataToSend.birthDate.replace(
+    // birth_date 형식  : YYYY-MM-DD
+    formDataToSend.birth_date = formDataToSend.birth_date.replace(
       /^(\d{4})(\d{2})(\d{2})$/,
       "$1-$2-$3"
     );
-    console.log(formDataToSend);
-    // try, catch 회원가입 요청
+    //회원가입 요청
     try {
-      const { data } = await postApi("/auth/sign-up", formDataToSend);
-      console.log(data);
+      const { data } = await postApi("/auth/members", formDataToSend);
       if (data) {
         setSignUpComplete(true);
       }
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   }
 
@@ -672,8 +660,8 @@ function SignUP() {
                     >
                       <SignUpInput
                         type="text"
-                        name="birthDate"
-                        value={form.birthDate}
+                        name="birth_date"
+                        value={form.birth_date}
                         placeholder="YYYYMMDD"
                         required
                         onChange={handleBirthChange}

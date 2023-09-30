@@ -9,6 +9,7 @@ import googleIcon from "../assets/icon-googleSymbol.png";
 import kakaoIcon from "../assets/icon-kakaoSymbol.png";
 import naverIcon from "../assets/icon-naverSymbol.png";
 import { useNavigate } from "react-router-dom";
+import { postApi } from "../utils/http";
 
 // 소셜 로그인 provider
 const socialLoginProviders = [
@@ -28,19 +29,58 @@ const socialLoginProviders = [
 
 function Login({ fromSignUp = false }) {
   const navigate = useNavigate();
-  const [dialog, setDialog] = useState(false);
+  // 모달 창
+  const [modal, setModal] = useState(false);
+  // login error state
+  const [errorNum, setErrorNum] = useState(0);
+  // login error message
+  const [errorMessage, setErrorMessage] = useState("");
+  // login form
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 
-  const handleInputChange = () => {
-    setDialog(true);
+  // 이메일 변경 시
+  const handleEmail = (e) => {
+    setLoginForm({
+      ...loginForm,
+      email: e.target.value,
+    });
   };
+
+  // 비밀번호 변경 시
+  const handlePassword = (e) => {
+    setLoginForm({
+      ...loginForm,
+      password: e.target.value,
+    });
+  };
+
+  // 로그인 버튼 클릭 시
+  const handleLoginClick = async () => {
+    // 로그인 요청
+    console.log(loginForm);
+    try {
+      const { data } = await postApi("/auth/login", loginForm);
+      if (data) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const onConfirm = () => {
     console.log("확인");
-    setDialog(false);
+    setModal(false);
   };
   const onCancel = () => {
     console.log("취소");
-    setDialog(false);
+    setModal(false);
   };
+
+  // const test = {
+  //   account_name: "string",
+  //   initial_cash: 0,
+  // };
 
   //회원가입 클릭
   const handleClickSignUp = () => {
@@ -76,11 +116,23 @@ function Login({ fromSignUp = false }) {
           </LoginTitle>
           <LoginInputBox>
             <Label>이메일</Label>
-            <LoginInput type="email" name="email" required></LoginInput>
+            <LoginInput
+              type="email"
+              name="email"
+              value={loginForm.email}
+              onChange={handleEmail}
+              required
+            ></LoginInput>
             <Label>비밀번호</Label>
-            <LoginInput type="password" name="password" required></LoginInput>
+            <LoginInput
+              type="password"
+              name="password"
+              value={loginForm.password}
+              onChange={handlePassword}
+              required
+            ></LoginInput>
           </LoginInputBox>
-          <Button width="80%" height="3rem">
+          <Button width="80%" height="3rem" onClick={handleLoginClick}>
             로그인
           </Button>
           <LineContainer>
@@ -101,17 +153,17 @@ function Login({ fromSignUp = false }) {
             <SignUpText onClick={handleClickSignUp}>회원가입</SignUpText>
           </SignUpButton>
         </LoginBox>
+        {/* 로그인 실패 시 모달 */}
+        <Modal
+          width={"50%"}
+          height={"12rem"}
+          title={errorMessage}
+          onConfirm={onConfirm}
+          visible={modal}
+        >
+          다시 입력해주세요.
+        </Modal>
       </LeftContainer>
-      <Modal
-        title="정말로 삭제하시겠습니까?"
-        confirmText="삭제"
-        cancelText="취소"
-        onConfirm={onConfirm}
-        onCancel={onCancel}
-        visible={dialog}
-      >
-        데이터를 정말로 삭제하시겠습니까?
-      </Modal>
     </LoginContainer>
   );
 }

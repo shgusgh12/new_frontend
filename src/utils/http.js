@@ -9,13 +9,14 @@ const headers = {
 getApi("challenges", headers);
 */
 
-const BACKEND_URL = "http://223.130.138.147:8080/api/v1";
+const BACKEND_URL = "http://localhost:8080/api/v1";
 
 export async function getApi(url, headers, params) {
   const response = await axios.get(BACKEND_URL + url, {
     headers: headers,
     params: params,
     withCredentials: true,
+    crossDomain: true,
   });
 
   return response;
