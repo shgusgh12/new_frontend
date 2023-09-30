@@ -1,0 +1,66 @@
+.section {
+    margin: 0px auto;
+}
+
+.top_wrapper {
+    display: flex;
+    gap: 25px;
+
+    width: 100%;
+    margin: 25px 0px;
+}
+
+.top_item {
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        font-size: 1.5rem;
+        color: #000;
+    }
+    h1 > span:last-child {
+        padding: 0px 10px;
+    }
+
+    .total_cash {
+    }
+
+    .total_earn {
+    }
+
+    .total_eval {
+    }
+}
+
+.bottom_wrapper {
+    display: flex;
+    gap: 25px;
+
+    width: 100%;
+
+    .total_hold {
+        margin-top: 80px;
+    }
+}
+
+.total_assets {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 1.5rem;
+
+    span:first-child {
+        color: #00a968;
+    }
+    span:last-child {
+        color: #000;
+    }
+}
+
+.total_ror {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 1.5rem;
+    color: #000;
+}
