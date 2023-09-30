@@ -79,12 +79,10 @@ export const Table = {
         );
     },
 
-    Container: ({ ratio, width, children, ...rest }) => {
+    Container: ({ ratio, width, minWidth, maxWidth, children, ...rest }) => {
         const containerRef = useRef();
 
         useLayoutEffect(() => {
-            containerRef.current.style.width = width;
-
             const cols = document.querySelectorAll(`.${style.col}`);
             const rows = document.querySelectorAll(`.${style.row}`);
 
@@ -105,7 +103,7 @@ export const Table = {
         }, [width, ratio]);
 
         return (
-            <div ref={containerRef} className={style.container} {...rest}>
+            <div ref={containerRef} className={style.container} style={{ width: width, maxWidth: maxWidth, minWidth: minWidth }} {...rest}>
                 {children}
             </div>
         );

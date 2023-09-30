@@ -1,5 +1,7 @@
-import { useRef, useLayoutEffect, useState, useEffect, forwardRef } from "react";
+import { useLayoutEffect, useState } from "react";
 import styles from "./Calender.module.scss";
+
+import { Ticker } from "./Stock";
 
 const day = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -15,9 +17,10 @@ const getCalendarDate = (year, month) => {
 };
 
 // 마음에안듦,, 코드 리팩토링 필요해보임,,,,,,,,,,,,,,,,,,,,,,,,,
-export const CalendarItem = ({ date, children, innerRef, ...rest }) => {
+
+export const CalendarItem = ({ date, children, itemRef, ...rest }) => {
     return (
-        <div className={styles.item} ref={innerRef} {...rest}>
+        <div className={styles.item} ref={itemRef} {...rest}>
             <div className={styles.date}>
                 <span>{date}</span>
                 <div>{children}</div>
@@ -57,14 +60,6 @@ export const Calendar = ({ year, month, data, itemWidth, itemHeight }) => {
                 break;
             }
         }
-
-        // CalendarItem 에 data 매핑
-        for (const element of dateElements) {
-            const mappedElement = data.find((e) => e.date === Number(element.innerHTML));
-            if (mappedElement) {
-                // element.parentElement.children[1].appendChild(span);
-            }
-        }
     }, []);
 
     return (
@@ -97,10 +92,60 @@ export const Calendar = ({ year, month, data, itemWidth, itemHeight }) => {
                 {
                     // date : 시작날짜 이후 날짜가 들어간 div element 리턴
                     getCalendarDate(year, month).date.map((date, index) => {
-                        return <CalendarItem key={index} date={date} onClick={handleClick}></CalendarItem>;
+                        const dateEvent = data.find((element) => element.date === index + 1);
+                        if (dateEvent) {
+                            return (
+                                <CalendarItem key={index} date={date} onClick={handleClick}>
+                                    {dateEvent.content.map((content) => {
+                                        if (content > 0) return <p style={{ color: "#0ECB81" }}>+{content.toLocaleString()}</p>;
+                                        else return <p style={{ color: "#F6465D" }}>{content.toLocaleString()}</p>;
+                                    })}
+                                </CalendarItem>
+                            );
+                        } else {
+                            return <CalendarItem key={index} date={date} onClick={handleClick} />;
+                        }
                     })
                 }
             </div>
         </div>
     );
+};
+
+export const CalendarAside = {
+    Container: ({ children, year, month, date }) => {
+        return (
+            <div className={styles.aside_container}>
+                <div className={styles.aside_head}>
+                    <div className={styles.transaction_count}>
+                        <h3>이날의 거래</h3>
+                        <div className={styles.indicator}>{children.length}</div>
+                    </div>
+
+                    <div className={styles.transaction_date}>
+                        <h4>
+                            {year}.{month}.{date}
+                        </h4>
+                    </div>
+                </div>
+
+                <div className={styles.aside_body}>{children}</div>
+            </div>
+        );
+    },
+    Item: ({ type, ticker, color, amount, price }) => {
+        return (
+            <div className={styles.aside_item}>
+                <Ticker ticker={ticker} color={color} />
+                <div className={styles.item_description}>
+                    <p>{amount}주</p>
+                    <p style={{ color: type === "매수" && "#F6465D" }}>{type}</p>
+                    <p>
+                        {price > 0 && "-"}
+                        {price.toLocaleString()}원
+                    </p>
+                </div>
+            </div>
+        );
+    },
 };
