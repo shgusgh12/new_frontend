@@ -83,6 +83,7 @@ export const Table = {
         const containerRef = useRef();
 
         useLayoutEffect(() => {
+
             const cols = document.querySelectorAll(`.${style.col}`);
             const rows = document.querySelectorAll(`.${style.row}`);
 

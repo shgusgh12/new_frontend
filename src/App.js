@@ -10,7 +10,6 @@ import Lecture from "./pages/User/lecture";
 import Community from "./pages/User/community";
 import MyPage from "./pages/User/mypage";
 import NotFoundPage from "./pages/NotFoundPage";
-
 // 마이페이지 Nested Route Sections
 import PortfolioSection from "./pages/User/mypage/Portfolio";
 import LedgerSection from "./pages/User/mypage/Ledger";

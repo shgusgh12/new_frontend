@@ -43,7 +43,7 @@ const slideDown = keyframes`
   }
 `;
 const DarkBackground = styled.div`
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   width: 100%;
@@ -68,10 +68,12 @@ const DarkBackground = styled.div`
 `;
 
 const ModalBlock = styled.div`
-  width: 320px;
+  width: ${(props) => `${props.width}` || "20rem"};
+  height: ${(props) => `${props.height}` || "auto"};
   padding: 1.5rem;
   background: white;
   border-radius: 2px;
+  position: relative;
   h3 {
     margin: 0;
     font-size: 1.5rem;
@@ -94,17 +96,28 @@ const ModalBlock = styled.div`
     `}
 `;
 
-const ButtonGroup = styled.div`
-  margin-top: 3rem;
-  display: flex;
-  justify-content: flex-end;
+const Title = styled.div`
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
 `;
 
-const ShortMarginButton = styled(Button)`
-  & + & {
-    margin-left: 0.5rem;
-  }
+const ButtonGroup = styled.div`
+  width: 40%;
+  height: 40px;
+  background-color: blue;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
 `;
+
+// const ShortMarginButton = styled(Button)`
+//   & + & {
+//     margin-left: 0.5rem;
+//   }
+// `;
 
 function Modal({
   title,
@@ -114,6 +127,8 @@ function Modal({
   onConfirm,
   onCancel,
   visible,
+  width,
+  height,
 }) {
   // 현재 트랜지션 효과를 보여주고 있는 상태를 의미
   const [animate, setAnimate] = useState(false);
@@ -132,16 +147,20 @@ function Modal({
   if (!animate & !localVisible) return null;
   return (
     <DarkBackground disappear={!visible}>
-      <ModalBlock disappear={!visible}>
-        <h3>{title}</h3>
+      <ModalBlock disappear={!visible} width={width} height={height}>
+        <Title>{title}</Title>
         <p>{children}</p>
         <ButtonGroup>
-          <ShortMarginButton width="100px" color="red" onClick={onCancel}>
-            {cancelText}
-          </ShortMarginButton>
-          <ShortMarginButton width="100px" color="green" onClick={onConfirm}>
-            {confirmText}
-          </ShortMarginButton>
+          {onCancel && (
+            <Button width="50%" height="100%" color="red" onClick={onCancel}>
+              {cancelText}
+            </Button>
+          )}
+          {onConfirm && (
+            <Button width="50%" height="100%" color="green" onClick={onConfirm}>
+              {confirmText}
+            </Button>
+          )}
         </ButtonGroup>
       </ModalBlock>
     </DarkBackground>
