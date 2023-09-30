@@ -16,7 +16,6 @@ export async function getApi(url, headers, params) {
     headers: headers,
     params: params,
     withCredentials: true,
-    crossDomain: true,
   });
 
   return response;
