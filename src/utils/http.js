@@ -9,7 +9,7 @@ const headers = {
 getApi("challenges", headers);
 */
 
-const BACKEND_URL = "http://localhost:8080/api/v1";
+const BACKEND_URL = "http://api.stocodi.com:8080/api/v1";
 
 export async function getApi(url, headers, params) {
   const response = await axios.get(BACKEND_URL + url, {
