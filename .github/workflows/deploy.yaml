@@ -28,5 +28,6 @@ jobs:
             cd /new_frontend/
             sudo git checkout develop
             sudo git pull origin develop
+            npm install --force
             sudo npm run build
             sudo systemctl restart nginx
