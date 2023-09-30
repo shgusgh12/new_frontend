@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 html {
-  overflow-y: scroll;
+  font-size: 16px;
   background-color: #f9f9f9;
 }
 
@@ -26,7 +26,7 @@ a:visited {
 }
 
 :root {
-  --box-shadow: 5px 5px 10px 0 rgb(0 0 0 / 5%);
+  --box-shadow: 10px 5px 10px rgb(0, 0, 0, 0.3);
 }
 
 .nav,
