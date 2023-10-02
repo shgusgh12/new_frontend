@@ -1,15 +1,15 @@
 import classNames from "classnames";
 import warnIcon from "../assets/Warn.svg";
-import styles from "./Warn.module.css";
+import styles from "./Warn.module.scss";
 
 function Warn({ className, variant = "", title = "", description = "" }) {
-  return (
-    <div className={classNames(styles.warn, styles[variant], className)}>
-      <img className={styles.icon} src={warnIcon} alt="경고" />
-      <h2 className={styles.title}>{title}</h2>
-      <p className={styles.description}>{description}</p>
-    </div>
-  );
+    return (
+        <div className={classNames(styles.warn, styles[variant], className)}>
+            <img className={styles.icon} src={warnIcon} alt="경고" />
+            <h2 className={styles.title}>{title}</h2>
+            <p className={styles.description}>{description}</p>
+        </div>
+    );
 }
 
 export default Warn;

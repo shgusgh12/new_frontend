@@ -39,7 +39,6 @@ export const Table = {
         const colRef = useRef();
 
         useLayoutEffect(() => {
-
             if (position == undefined) {
                 colRef.current.style.justifyContent = "center";
                 colRef.current.style.alignItems = "center";
@@ -82,6 +81,7 @@ export const Table = {
         );
     },
 
+
     Container: ({ ratio, width, padding, children, ...rest }) => {
         const containerRef = useRef();
 
@@ -114,3 +114,4 @@ export const Table = {
         );
     },
 };
+

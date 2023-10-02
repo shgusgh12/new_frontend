@@ -1,0 +1,120 @@
+.wrapper {
+    box-sizing: content-box;
+
+    padding: 20px;
+    border: 1px solid #ebebeb;
+    border-radius: 40px;
+
+    background-color: #fff;
+}
+
+.head_container {
+    box-sizing: content-box;
+
+    display: flex;
+    align-items: center;
+    height: 50px;
+
+    border-bottom: 2px solid #dddddd;
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.body_container {
+    box-sizing: content-box;
+
+    display: grid;
+    grid-template-columns: repeat(7, 50px);
+}
+
+.item {
+    padding: 10px;
+
+    .date {
+        // 날짜 동그라미에 포인터 이벤트 제거
+        pointer-events: none;
+
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 35px;
+            height: 35px;
+            margin-bottom: 5px;
+            border-radius: 50%;
+
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #767676;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+.item_active {
+    div > span {
+        background-color: #00a96b;
+        color: #ffffff !important;
+    }
+}
+
+// CalendarAsice
+
+.aside_container {
+    width: 350px;
+
+    padding: 20px;
+    border: 1px solid #ebebeb;
+    border-radius: 20px;
+
+    background-color: #fff;
+
+    .aside_head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 20px;
+
+        .transaction_count {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .indicator {
+                width: 30px;
+                height: 30px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                border: 1.5px solid #0ecb81;
+                border-radius: 50%;
+
+                background-color: #e7fbf3;
+            }
+        }
+        .transaction_date {
+        }
+    }
+    .aside_body {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+.aside_item {
+    display: flex;
+    justify-content: space-between;
+
+    .item_description {
+        display: flex;
+        gap: 5px;
+    }
+}

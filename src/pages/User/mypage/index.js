@@ -1,18 +1,14 @@
-import LeftBar from "../../../components/LeftBar";
-import MyPageBody from "./body";
-import styled from "styled-components";
+import { Outlet } from "react-router-dom";
+import { NavAside } from "../../../components/Nav";
 
-function MyPage() {
-  return (
-    <MyPageContainer>
-      <LeftBar />
-      <MyPageBody />
-    </MyPageContainer>
-  );
+import styles from "./index.module.scss";
+
+
+export default function MyPage() {
+    return (
+        <main className={styles.page}>
+            <NavAside />
+            <Outlet />
+        </main>
+    );
 }
-
-const MyPageContainer = styled.div`
-  display: flex;
-`;
-
-export default MyPage;
