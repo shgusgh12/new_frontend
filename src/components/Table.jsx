@@ -18,10 +18,12 @@ export const Table = {
         );
     },
 
-    Row: ({ children, height, borderTop, borderBottom, ...rest }) => {
+    Row: ({ children, height, borderTop, borderBottom, fontSize,color, ...rest }) => {
         const row = useRef();
 
         useLayoutEffect(() => {
+            row.current.style.fontSize = fontSize;
+            row.current.style.color = color;
             if (borderTop) row.current.style.borderTop = "solid 1px #dddddd";
             if (borderBottom) row.current.style.borderBottom = "solid 1px #dddddd";
         }, [borderTop, borderBottom]);
@@ -79,11 +81,13 @@ export const Table = {
         );
     },
 
-    Container: ({ ratio, width, minWidth, maxWidth, children, ...rest }) => {
+
+    Container: ({ ratio, width, padding, children, ...rest }) => {
         const containerRef = useRef();
 
         useLayoutEffect(() => {
-
+            containerRef.current.style.width = width;
+            containerRef.current.style.padding = padding;
             const cols = document.querySelectorAll(`.${style.col}`);
             const rows = document.querySelectorAll(`.${style.row}`);
 
@@ -101,12 +105,13 @@ export const Table = {
                     cols[i].style.flexGrow = "1";
                 }
             }
-        }, [width, ratio]);
+        }, [width, padding, ratio]);
 
         return (
-            <div ref={containerRef} className={style.container} style={{ width: width, maxWidth: maxWidth, minWidth: minWidth }} {...rest}>
+            <div ref={containerRef} className={style.container} {...rest}>
                 {children}
             </div>
         );
     },
 };
+
