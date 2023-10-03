@@ -1,9 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "./UserMenu.module.css";
+import { useNavigate } from "react-router-dom";
+import useLoginStatus from "../hooks/useLoginStatus";
 
-function UserMenu() {
+function UserMenu({ isLogin }) {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useLoginStatus();
+
+  // 로그아웃
+  // 쿠키에 있는 accessToken, refreshToken을 삭제하고 로그인 페이지로 이동
+  async function onClickLogout() {
+    await logout();
+    console.log("onClickLogout : ", isLogin);
+  }
 
   const handleButtonClick = useCallback((e) => {
     e.stopPropagation();
@@ -23,14 +33,18 @@ function UserMenu() {
 
   return (
     <div className={styles.userMenu}>
-      <div onClick={handleButtonClick}>유저이름</div>
+      {/* 로그인이 되어있으면 유저이름을 보여주고, 로그인이 안되어있으면 로그인 버튼을 보여줌 */}
+      {isLogin ? (
+        <div onClick={handleButtonClick}>{isLogin}</div>
+      ) : (
+        <div onClick={() => navigate("/auth/login")}>로그인</div>
+      )}
       {isOpen && (
         <ul className={styles.popup}>
-          <Link to="/wishlist">
-            <li>위시리스트</li>
-          </Link>
-          <li className={styles.disabled}>회원가입</li>
-          <li className={styles.disabled}>로그인</li>
+          <li onClick={onClickLogout}>로그아웃</li>
+
+          <li className={styles.disabled}>내 정보</li>
+          <li className={styles.disabled}>QnA</li>
         </ul>
       )}
     </div>

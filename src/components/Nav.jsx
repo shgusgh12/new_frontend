@@ -5,128 +5,102 @@ import logoImage from "../assets/Logo.png";
 import UserMenu from "./UserMenu";
 
 function getTopActiveStyle({ isActive }) {
-    return {
-        color: isActive ? "#00a968" : "#7d8790",
-        fontWeight: isActive ? "bold" : "normal",
-    };
+  return {
+    color: isActive ? "#00a968" : "#7d8790",
+    fontWeight: isActive ? "bold" : "normal",
+  };
 }
 
 function getAsideActiveClassName({ isActive }) {
-    return isActive ? styles.aside_item_active : styles.aside_item;
+  return isActive ? styles.aside_item_active : styles.aside_item;
 }
 
+const navTopItems = [
+  { to: "/", text: "투자실험" },
+  { to: "/lectures", text: "강의" },
+  { to: "/column", text: "칼럼" },
+  { to: "/community", text: "커뮤니티" },
+  { to: "/mypage/portfolio", text: "마이페이지" },
+];
+
+const navAsideItems = [
+  {
+    to: "/mypage/portfolio",
+    icon: "/icon/piechart.svg",
+    text: "내 포트폴리오",
+  },
+  { to: "/mypage/ledger", icon: "/icon/creditcard.svg", text: "가계부" },
+  { to: "/mypage/scrap", icon: "/icon/bookmark.svg", text: "스크랩" },
+  { to: "/mypage/comment", icon: "/icon/comment.svg", text: "댓글 관리" },
+  { to: "/mypage/post", icon: "/icon/document.svg", text: "게시물 관리" },
+  { divider: true },
+  { to: "/mypage/settings", icon: "/icon/settings.svg", text: "내 정보 수정" },
+  { to: "/mypage/faq", icon: "/icon/question.svg", text: "FAQ" },
+  { to: "/mypage/consult", icon: "/icon/consult.svg", text: "고객센터" },
+];
+
 // 상단 네비게이션 바
-export const NavTop = () => {
-    return (
-        <nav className={styles.top_wrapper}>
-            <ul className={styles.top_container}>
-                <li className={styles.top_item}>
-                    <Link to="/">
-                        <img src={logoImage} />
-                    </Link>
-                </li>
+export const NavTop = (props) => {
+  return (
+    <nav className={styles.top_wrapper}>
+      <ul className={styles.top_container}>
+        <li className={styles.top_item}>
+          <Link to="/">
+            <img src={logoImage} />
+          </Link>
+        </li>
 
-                <li style={{ flexGrow: 1 }} />
+        <li style={{ flexGrow: 1 }} />
 
-                <li className={styles.top_item}>
-                    <NavLink to="/experiment" style={getTopActiveStyle}>
-                        투자실험
-                    </NavLink>
-                </li>
+        {navTopItems.map((item, index) => (
+          <li key={index} className={styles.top_item}>
+            <NavLink to={item.to} style={getTopActiveStyle}>
+              {item.text}
+            </NavLink>
+          </li>
+        ))}
 
-                <li className={styles.top_item}>
-                    <NavLink to="/lectures" style={getTopActiveStyle}>
-                        강의
-                    </NavLink>
-                </li>
-
-                <li className={styles.top_item}>
-                    <NavLink to="/column" style={getTopActiveStyle}>
-                        칼럼
-                    </NavLink>
-                </li>
-
-                <li className={styles.top_item}>
-                    <NavLink to="/community" style={getTopActiveStyle}>
-                        커뮤니티
-                    </NavLink>
-                </li>
-
-                <li className={styles.top_item}>
-                    <NavLink to="/mypage/portfolio" style={getTopActiveStyle}>
-                        마이페이지
-                    </NavLink>
-                </li>
-
-                <li className={styles.top_item}>{/* 로그인버튼 ?? */}</li>
-            </ul>
-        </nav>
-    );
+        <li className={styles.top_item}>
+          <UserMenu isLogin={props.isLogin}></UserMenu>
+        </li>
+      </ul>
+    </nav>
+  );
 };
 
 // 마이페이지 측면 네비게이션바
 export const NavAside = () => {
-    return (
-        <aside className={styles.aside_wrapper}>
-            <ul className={styles.aside_container}>
-                <NavLink className={getAsideActiveClassName} to="/mypage/portfolio">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/piechart.svg"} alt="" />
-                    </span>
-                    <span>내 포트폴리오</span>
-                </NavLink>
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/ledger">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/creditcard.svg"} alt="" />
-                    </span>
-                    <span>가계부</span>
-                </NavLink>
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/scrap">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/bookmark.svg"} alt="" />
-                    </span>
-                    <span>스크랩</span>
-                </NavLink>
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/comment">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/comment.svg"} alt="" />
-                    </span>
-                    <span>댓글 관리</span>
-                </NavLink>
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/post">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/document.svg"} alt="" />
-                    </span>
-                    <span>게시물 관리</span>
-                </NavLink>
-
-                <li style={{ width: "185px", margin: "0px auto", borderTop: "1px solid #191919" }} />
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/settings">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/settings.svg"} alt="" />
-                    </span>
-                    <span>내 정보 수정</span>
-                </NavLink>
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/faq">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/question.svg"} alt="" />
-                    </span>
-                    <span>FAQ</span>
-                </NavLink>
-
-                <NavLink className={getAsideActiveClassName} to="/mypage/consult">
-                    <span>
-                        <img style={{ marginTop: "5px" }} src={process.env.PUBLIC_URL + "/icon/consult.svg"} alt="" />
-                    </span>
-                    <span>고객센터</span>
-                </NavLink>
-            </ul>
-        </aside>
-    );
+  return (
+    <aside className={styles.aside_wrapper}>
+      <ul className={styles.aside_container}>
+        {navAsideItems.map((item, index) =>
+          item.divider ? (
+            <li
+              key={index}
+              style={{
+                width: "185px",
+                margin: "0px auto",
+                borderTop: "1px solid #191919",
+              }}
+            />
+          ) : (
+            <NavLink
+              key={index}
+              className={getAsideActiveClassName}
+              to={item.to}
+            >
+              <span>
+                <img
+                  style={{ marginTop: "5px" }}
+                  src={process.env.PUBLIC_URL + item.icon}
+                  alt=""
+                />
+              </span>
+              <span>{item.text}</span>
+            </NavLink>
+          )
+        )}
+      </ul>
+    </aside>
+  );
 };

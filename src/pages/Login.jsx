@@ -10,6 +10,8 @@ import kakaoIcon from "../assets/icon-kakaoSymbol.png";
 import naverIcon from "../assets/icon-naverSymbol.png";
 import { useNavigate } from "react-router-dom";
 import { postApi } from "../utils/http";
+import { setCookie } from "../utils/cookie";
+import axios from "axios";
 
 // 소셜 로그인 provider
 const socialLoginProviders = [
@@ -57,10 +59,18 @@ function Login({ fromSignUp = false }) {
   // 로그인 버튼 클릭 시
   const handleLoginClick = async () => {
     // 로그인 요청
-    console.log(loginForm);
     try {
-      const { data } = await postApi("/auth/login", loginForm);
+      const { data } = await postApi({
+        url: "/auth/login",
+        requestBody: loginForm,
+      });
       if (data) {
+        // 쿠키에 닉네임 저장
+        setCookie("nickname", data.response.member_nickname, {
+          path: "/",
+          domain: ".stocodi.com",
+        });
+        // axios의 모든 header에 token 추가
         navigate("/");
       }
     } catch (error) {
@@ -76,11 +86,6 @@ function Login({ fromSignUp = false }) {
     console.log("취소");
     setModal(false);
   };
-
-  // const test = {
-  //   account_name: "string",
-  //   initial_cash: 0,
-  // };
 
   //회원가입 클릭
   const handleClickSignUp = () => {

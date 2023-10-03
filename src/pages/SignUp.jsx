@@ -416,7 +416,9 @@ function SignUP() {
     // 이메일 중복확인
     if (e.target.name === "email") {
       try {
-        const { data } = await getApi(`/auth/email?email=${form.email}`);
+        const { data } = await getApi({
+          url: `/auth/email?email=${form.email}`,
+        });
         console.log(data);
         if (data) {
           // 사용 가능한 이메일
@@ -431,9 +433,9 @@ function SignUP() {
     } else if (e.target.name === "nickname") {
       // 닉네임 중복확인
       try {
-        const { data } = await getApi(
-          `/auth/nicknames/nickname?=${form.nickname}`
-        );
+        const { data } = await getApi({
+          url: `/auth/nicknames/nickname?=${form.nickname}`,
+        });
         console.log(data);
         if (data) {
           // 사용 가능한 닉네임
@@ -506,7 +508,10 @@ function SignUP() {
     );
     //회원가입 요청
     try {
-      const { data } = await postApi("/auth/members", formDataToSend);
+      const { data } = await postApi({
+        url: "/auth/members",
+        requestBody: formDataToSend,
+      });
       if (data) {
         setSignUpComplete(true);
       }
