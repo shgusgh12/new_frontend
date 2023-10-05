@@ -10,12 +10,17 @@ import Lecture from "./pages/User/lecture";
 import Community from "./pages/User/community";
 import MyPage from "./pages/User/mypage";
 import NotFoundPage from "./pages/NotFoundPage";
+
 // 마이페이지 Nested Route Sections
 import PortfolioSection from "./pages/User/mypage/Portfolio";
 import LedgerSection from "./pages/User/mypage/Ledger";
 import ScrapSection from "./pages/User/mypage/Scrap";
 import CommentSection from "./pages/User/mypage/Comment";
 import PostSection from "./pages/User/mypage/Post";
+
+// 쿠키
+import { getCookie } from "./utils/cookie";
+import { useEffect, useState } from "react";
 
 // 오늘 해야할 일
 // 1. 마이페이지 왼쪽 바 디자인
@@ -31,46 +36,51 @@ import PostSection from "./pages/User/mypage/Post";
 // 버튼, 모달 컴포넌트
 // 가능하면 로그인 리코일 상태 관리
 
+// 여기서 가져오고 뿌려주고, login에서는 뿌려준 게 있으면 바로 redirect
+// 우리 사이트는 로그인을 해야만 들어갈 수 있는 게 아니양
+
+// 쿠키에서 accessToken을 가져와서 로그인 상태 전달 (true, false)
+
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                {/* 로그인, 회원가입 */}
-                <Route path="/auth">
-                    <Route path="login" element={<Login />} />
-                    <Route path="signup" element={<SignUp />} />
-                </Route>
-                {/* 나머지 페이지 */}
-                {/* 메인 컴포넌트는 공통 디자인 Navm, Footer가 들어가있습니다.*/}
-                <Route path="/" element={<Main />}>
-                    <Route index element={<Home />} />
-                    {/* 
-          Home에서 관리자면 관리자, 유저면 유저 컴포넌트 불러오게 하면 끝인가? 
-          관리자는 유저가 보는 페이지 못 보게 분리해야해
-          유저는 관리자가 보는 페이지 못 보게 분리해야해 
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* 로그인, 회원가입 */}
+        <Route path="/auth">
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
+        </Route>
+        {/* 나머지 페이지 */}
+        {/* 메인 컴포넌트는 공통 디자인 Navm, Footer가 들어가있습니다.*/}
+        <Route path="/" element={<Main />}>
+          <Route index element={<Home />} />
+          {/* 
+            Home에서 관리자면 관리자, 유저면 유저 컴포넌트 불러오게 하면 끝인가? 
+            관리자는 유저가 보는 페이지 못 보게 분리해야해
+            유저는 관리자가 보는 페이지 못 보게 분리해야해 
           */}
-                    {/* 투자 실험 */}
-                    <Route path="experiment" element={<Experiment />} />
-                    {/* 강의실 */}
-                    <Route path="lectures" element={<Lecture />} />
-                    {/* 칼럼 */}
-                    <Route path="column" element={<Column />} />
-                    {/* 커뮤니티 */}
-                    <Route path="community" element={<Community />} />
-                    {/* 마이페이지 */}
-                    <Route path="mypage" element={<MyPage />}>
-                        <Route path="portfolio" element={<PortfolioSection />} />
-                        <Route path="ledger" element={<LedgerSection />} />
-                        <Route path="scrap" element={<ScrapSection />} />
-                        <Route path="comment" element={<CommentSection />} />
-                        <Route path="post" element={<PostSection />} />
-                    </Route>
-                    {/* 없는 페이지 */}
-                    <Route path="*" element={<NotFoundPage />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+          {/* 투자 실험 */}
+          <Route path="experiment" element={<Experiment />} />
+          {/* 강의실 */}
+          <Route path="lectures" element={<Lecture />} />
+          {/* 칼럼 */}
+          <Route path="column" element={<Column />} />
+          {/* 커뮤니티 */}
+          <Route path="community" element={<Community />} />
+          {/* 마이페이지 */}
+          <Route path="mypage" element={<MyPage />}>
+            <Route path="portfolio" element={<PortfolioSection />} />
+            <Route path="ledger" element={<LedgerSection />} />
+            <Route path="scrap" element={<ScrapSection />} />
+            <Route path="comment" element={<CommentSection />} />
+            <Route path="post" element={<PostSection />} />
+          </Route>
+          {/* 없는 페이지 */}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
