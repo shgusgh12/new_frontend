@@ -11,17 +11,21 @@
     padding:60px;
     flex-direction: column;
 }
-
-.menu{
-    
-    height: 2.5rem;
-    width: 320px;
-    background-color: #EFEFEF;
-    border-radius: 40px;
+.menuContainer{
+    width: 65%;
+    margin-bottom: 23px;
     display: flex;
-    gap : 5px;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    .menu{
+        height: 2.5rem;
+        width: 320px;
+        background-color: #EFEFEF;
+        border-radius: 40px;
+        display: flex;
+        gap : 5px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
     button{
         border: #EFEFEF;
         height: 85%;
@@ -34,6 +38,8 @@
     }
     
 }
+}
+
 
 .selected{
     background-color: #FFFFFF !important;

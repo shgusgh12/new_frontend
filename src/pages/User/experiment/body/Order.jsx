@@ -6,18 +6,31 @@ import StockChart from '../../../../components/StockChart';
 import Search from '../../../../assets/search.svg';
 import { DropDown } from '../../../../components/DropDown';
 import { useState } from 'react';
+import axios from 'axios';
 const Order = () => {
     const [selected, setSelected] = useState({ index: -1, value: "포트폴리오 선택" });
+    const [userInput, setUserInput] = useState('');
+    const BACKEND_URL = `http://localhost:53001/api/v1/stocks/search?key=${userInput}`;
+    const [stockName, setStockName] = useState('');
+    const onClick = () => {
+        axios.get(BACKEND_URL)
+            .then(response => {
+            setStockName(response.data.response.stock_list[0].stock_name);
+            console.log(stockName);
+        })
+    }
+
+
     return(
         <div className={styles.container}>
             <div className={styles.chartContainer}>
                 <div className={styles.stockInfo}>
                     <div className={styles.stockContents}>
-                        <StockName></StockName>
+                        <StockName stockName={stockName}></StockName>
                         <StockPrice></StockPrice>
                         <StockTransaction transAmount={10000} transactionPrice={10000}></StockTransaction>
                     </div>
-                    <StockSearch></StockSearch>
+                    <StockSearch onClick={onClick} userInput={userInput} setUserInput={setUserInput}></StockSearch>
                 </div>
                 <div className={styles.chart}>
                     <StockChart></StockChart>
@@ -46,11 +59,10 @@ const Order = () => {
     )
 }
 
-const StockName = () => {
+const StockName = ({stockName}) => {
     return(
         <div className={styles.stockName}>
-            <img src={Apple}></img>
-            <p>애플</p>
+            <p>{stockName}</p>
         </div>
     );
 }
@@ -102,12 +114,23 @@ const StockTransaction = () => {
         </div>
     );
 }
-const StockSearch = () => {
+const StockSearch = ({userInput, setUserInput, onClick}) => {
+    const handleKeyDown = (event) => {
+        if(event.key === 'Enter'){
+            event.preventDefault();
+            onClick();
+        }
+    } 
+
+    const handleInputChange = (e) => {
+        setUserInput(e.target.value);
+    }
+
     return( 
         <form className={styles.stockSearch}>
-            <input placeholder='종목 검색'></input>
+            <input onKeyDown={handleKeyDown} onChange={handleInputChange} placeholder='종목 검색'></input>
             <button>
-                <img src={Search}></img>
+                <img src={Search} onClick={onClick} ></img>
             </button>
         </form>
     );
