@@ -1,11 +1,18 @@
 import { Table } from "./Table";
 import styles from './Rank.module.scss';
-
+import { getApi } from "../utils/http";
+import { useEffect, useState } from "react";
+import { sendRequestWithAccessToken } from "../utils/token";
+import axios from "axios";
 
 const Rank = ({name}) => {
+    
+
+    
   
     if(name === '관심종목'){
-      //관심종목일때 받아온 데이터
+      
+      
     }
     else{
       //아닐때
@@ -23,7 +30,7 @@ const Rank = ({name}) => {
             </Table.Row>
           </Table.Head>
           <Table.Body>
-            <Table.Row height="50px" fontSize='14px'>
+            <Table.Row height="55px" fontSize='14px'> 
               <Table.Col position='center-left'>#1</Table.Col>
               <Table.Col>삼성전자</Table.Col>
               <Table.Col>55,100</Table.Col>
